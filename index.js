@@ -27,8 +27,13 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
-
     const dataCollection = client.db("room_finder").collection("find-roommate");
+    app.get("/find-roommate", async (req, res) => {
+      // const cursor = dataCollection.find();
+      // const result = await cursor.toArray();
+      const result = await dataCollection.find().toArray();
+      res.send(result);
+    });
 
     app.post("/find-roommate", async (req, res) => {
       const newData = req.body;
