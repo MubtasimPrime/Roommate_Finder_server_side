@@ -1,5 +1,5 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
 require("dotenv").config();
 const app = express();
@@ -27,7 +27,9 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
+
     const dataCollection = client.db("room_finder").collection("find-roommate");
+
     app.get("/find-roommate", async (req, res) => {
       // const cursor = dataCollection.find();
       // const result = await cursor.toArray();
@@ -35,10 +37,25 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/roomDetails/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await dataCollection.findOne(query);
+      res.send(result);
+    });
+
     app.post("/find-roommate", async (req, res) => {
       const newData = req.body;
       console.log(newData);
       const result = await dataCollection.insertOne(newData);
+      res.send(result);
+    });
+
+    app.delete("/find-roommate/:id", async (req, res) => {
+      // console.log(req.params.id);
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await dataCollection.deleteOne(query);
       res.send(result);
     });
   } finally {
