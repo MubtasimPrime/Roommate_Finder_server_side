@@ -44,6 +44,24 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/find-roommate/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { email: email };
+      const result = await dataCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    app.put("/update-data/:id", async (req, res) => {
+      const data = req.body;
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updatedDoc = {
+        $set: data,
+      };
+      const result = await dataCollection.updateOne(query, updatedDoc);
+      res.send(result);
+    });
+
     app.post("/find-roommate", async (req, res) => {
       const newData = req.body;
       console.log(newData);
