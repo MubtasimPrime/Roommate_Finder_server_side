@@ -69,7 +69,7 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("/find-roommate/:id", async (req, res) => {
+    app.delete("/find-roommate-delete/:id", async (req, res) => {
       // console.log(req.params.id);
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
