@@ -37,6 +37,7 @@ async function run() {
       res.send(result);
     });
 
+    // done
     app.get("/roomDetails/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -44,6 +45,7 @@ async function run() {
       res.send(result);
     });
 
+    // baki
     app.get("/find-roommate/:email", async (req, res) => {
       const email = req.params.email;
       const query = { email: email };
@@ -51,6 +53,7 @@ async function run() {
       res.send(result);
     });
 
+    // done
     app.put("/update-data/:id", async (req, res) => {
       const data = req.body;
       const id = req.params.id;
@@ -62,6 +65,7 @@ async function run() {
       res.send(result);
     });
 
+    // done
     app.post("/find-roommate", async (req, res) => {
       const newData = req.body;
       console.log(newData);
@@ -69,6 +73,7 @@ async function run() {
       res.send(result);
     });
 
+    // Baki
     app.delete("/find-roommate-delete/:id", async (req, res) => {
       // console.log(req.params.id);
       const id = req.params.id;
